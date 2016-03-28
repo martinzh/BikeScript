@@ -16,12 +16,14 @@ Ddata = distribute(data)
 #println(size(Ddata))
 println("pass dist")
 
+println(file, "id_start,id_end,month,day,duration")
+
 for i in 1:10000
 #for i in 1:size(data,1)
     st_time = DateTime(Ddata[i,3], "y-m-d H:M:S")
     end_time = DateTime(Ddata[i,5], "y-m-d H:M:S")
-    #println("dur:\t", Dates.Minute(end_time - st_time), "\tsame:\t", Ddata[i,4] == Ddata[i,6] )
-    println(file, Ddata[i,4],",",Ddata[i,6],",",Int(Dates.Minute(end_time - st_time)),",",Dates.dayofweek(st_time),",",Dates.month(st_time))
+    # println(file, Ddata[i,4],",",Ddata[i,6],",",Dates.month(st_time),",",Dates.dayofweek(st_time),",",Int(Dates.Minute(end_time - st_time)))
+    println(file, Ddata[i,4],",",Ddata[i,6],",",Dates.month(st_time),",",Dates.dayofweek(st_time),",",Dates.value(Dates.Minute(end_time - st_time)))
 end
 
 close(file)
