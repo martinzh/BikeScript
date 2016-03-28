@@ -1,9 +1,11 @@
 @everywhere using DistributedArrays
 
-# raw_data = readcsv("/home/martin/Documents/datos_ecobici/EcobiciDF/2010.csv") # cubo
-raw_data = readcsv("/home/martin/datos_ecobici/EcobiciDF/2010.csv") # comadreja
+y = ARGS[1]
 
-file = open("filt_2010.csv", "w")
+# raw_data = readcsv("/home/martin/Documents/datos_ecobici/EcobiciDF/2010.csv") # cubo
+raw_data = readcsv("/home/martin/datos_ecobici/EcobiciDF/$(y).csv") # comadreja
+
+file = open("filt_$(y).csv", "w")
 
 #Encuentra viajes con status "A"
 trav_A = find( x -> x == "A  ", raw_data[:,7])
@@ -15,7 +17,7 @@ data = raw_data[trav_A,:]
 Ddata = distribute(data)
 println("pass dist")
 
-println(file, "id_start,id_end,month,day,duration")
+println(file, "id_start,id_end,month,day,mins")
 
 # for i in 1:10000
 for i in 1:size(data,1)
