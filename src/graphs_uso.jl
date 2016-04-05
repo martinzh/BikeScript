@@ -1,6 +1,8 @@
 using PyPlot
 
-cd("/home/martin/Documents/datos_ecobici/EcobiciDF")
+# cd("/home/martin/Documents/datos_ecobici/EcobiciDF") #cubo
+cd("/Users/martinC3/Google Drive/EcobiciDATA/EcobiciDF") #C3
+
 pwd()
 
 files = readdir()
@@ -11,7 +13,7 @@ for file in travs_files
 
     data = readcsv(file)
 
-    size(data)
+    println(size(data))
 
     dur_travs = convert(Array{Int64,1}, data[2:end, 6])
     dur_travs_filt = Int64[dur_travs[i] for i in find(x -> x <= 50 && x > 0, dur_travs)]
