@@ -25,9 +25,36 @@ for file in travs_files
 end
 
 # plt[:legend](bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
-plt[:legend]()
+plt[:legend](loc = "upper right")
 plt[:grid](true)
 plt[:xlabel]("t")
 plt[:ylabel]("P(t)")
 
+plt[:xlabel]("h")
+plt[:ylabel]("P(h)")
+
+plt[:title]("Duracion viajes")
+plt[:title]("Weekday")
+plt[:title]("Weekend")
+
 plt[:clf]()
+
+# filtra dias entre semana y fines de semana
+for file in travs_files
+    data = readcsv(file)
+
+    weekday_hr = Int64[data[i+1, 5] for i in find(x -> x in 1:5, data[2:end, 4])]
+
+    bins, counts = hist(weekday_hr, 24)
+    plt[:plot](collect(midpoints(bins)), counts / length(weekday_hr), ".-", label = replace(split(file,"_")[2], ".csv", ""))
+end
+
+
+# fines de semana
+for file in travs_files
+    data = readcsv(file)
+
+    weekend_hr = Int64[data[i+1, 5] for i in find(x -> x in 6:7, data[2:end, 4])]
+    bins, counts = hist(weekend_hr, 24)
+    plt[:plot](collect(midpoints(bins)), counts / length(weekend_hr), ".-", label = replace(split(file,"_")[2], ".csv", ""))
+end
