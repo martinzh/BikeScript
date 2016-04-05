@@ -8,7 +8,7 @@ raw_data = readcsv("/home/martin/datos_ecobici/EcobiciDF/$(y).csv") # comadreja
 file = open("filt_$(y).csv", "w")
 
 # Distribuye datos en procesadores
-Ddata = distribute(raw_data)
+Ddata = distribute(raw_data[2:end, :])
 println("pass dist")
 
 println(file, "id_start,id_end,month,day,hour,mins")
